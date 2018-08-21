@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.orilore.mapper.StudentsMapper">
+	<resultMap type="Students" id="studentsResultMap">
+		<id column="id" property="id"/>
+		<result column="sf" property="sf"/>
+		<result column="xm" property="xm"/>
+		<result column="xbbm" property="xbbm"/>
+		<result column="csny" property="csny"/>
+		<result column="sfzh" property="sfzh"/>
+		<result column="jtdz" property="jtdz"/>
+		<result column="mz" property="mz"/>
+		<result column="lxdh" property="lxdh"/>
+	</resultMap>
+	<select id="selectOne" parameterType="Integer" resultType="Students">
+		select * from students where id=#{0}
+	</select>
+	<select id="select" resultMap="studentsResultMap">
+		select * from students
+	</select>
+	<insert id="insert" parameterType="Students">
+		insert into students(sf,xm,xbbm,csny,sfzh,jtdz,mz,lxdh) values(#{sf},#{xm},#{xbbm},#{csny},#{sfzh},#{jtdz},#{mz},#{lxdh})
+	</insert>
+	<delete id="delete" parameterType="Integer">
+		delete from students where id=#{0}
+	</delete>
+	<update id="update" parameterType="Students">
+		update students set sf=#{sf},xm=#{xm},xbbm=#{xbbm},csny=#{csny},sfzh=#{sfzh},jtdz=#{jtdz},mz=#{mz},lxdh=#{lxdh} where id=#{id}
+	</update>
+</mapper>
