@@ -13,14 +13,21 @@
 		var vue = new Vue({
 			el:'#app',
 			data:{
+				pages:1,
+				page:1,
 				list:[]
 			},
 			methods:{
 				query : function(){
 					var that = this;
-					$.getJSON("student/query",{page:1},function(data){
-						that.list = data.list;
+					$.getJSON("student/query",{page:this.page},function(data){
+						that.list  = data.list;
+						that.pages = data.pages;
 					})
+				},
+				topage : function(n){
+					this.page = n;
+					this.query();
 				}
 			}
 		});
@@ -68,7 +75,19 @@
 			<div class="col-md-12 text-center">
 				<nav id="nav" aria-label="Page navigation">
 				  <ul class="pagination">
-				    
+				    <li @click="topage(1)">
+				      <a href="#" aria-label="Previous">
+				        <span aria-hidden="true">&laquo;</span>
+				      </a>
+				    </li>
+				    <li v-for="p in pages" @click="topage(p)">
+				    	<a href="#">{{p}}</a>
+				    </li>
+				    <li @click="topage(pages)">
+				      <a href="#" aria-label="Next">
+				        <span aria-hidden="true">&raquo;</span>
+				      </a>
+				    </li>
 				  </ul>
 				</nav>
 			</div>
