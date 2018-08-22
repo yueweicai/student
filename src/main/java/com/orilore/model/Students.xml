@@ -23,13 +23,13 @@
 		<if test="mz!=null and mz!=''">mz=#{mz} and </if>
 		<if test="xbbm!=null and xbbm!=''">xbbm=#{xbbm} and </if>
 		<if test="xm!=null and xm!=''">xm like concat('%',#{xm},'%') and </if>
-		2>1
+		status!=-1
 	</select>
 	<insert id="insert" parameterType="Students">
 		insert into students(sf,xm,xbbm,csny,sfzh,jtdz,mz,lxdh) values(#{sf},#{xm},#{xbbm},#{csny},#{sfzh},#{jtdz},#{mz},#{lxdh})
 	</insert>
 	<delete id="delete" parameterType="Integer">
-		delete from students where id=#{0}
+		update students set status=-1 where id=#{0}
 	</delete>
 	<update id="update" parameterType="Students">
 		update students set sf=#{sf},xm=#{xm},xbbm=#{xbbm},csny=#{csny},sfzh=#{sfzh},jtdz=#{jtdz},mz=#{mz},lxdh=#{lxdh} where id=#{id}

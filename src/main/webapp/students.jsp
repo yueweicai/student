@@ -7,12 +7,14 @@
 <title>学生信息表</title>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 <script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/vue.js"></script>
 <script type="text/javascript">
 	$(function() {
 		var vue = new Vue({
 			el : '#app',
 			data : {
+				id : 0,
 				pages : 1,
 				page : 1,
 				list : [],
@@ -26,6 +28,20 @@
 				}
 			},
 			methods : {
+				removeStudent:function(){
+					var that = this;
+					$.get("student/remove",{id:that.id},function(data){
+						if(data){
+							that.query();
+							that.id = 0;
+							$("#dialog").modal('hide');
+						}
+					})
+				},
+				showDialog : function(id){
+					this.id = id;
+					$("#dialog").modal('show');
+				},
 				reset : function() {
 					this.student = {
 						sf : '',
@@ -106,6 +122,7 @@
 								<th>电话号码</th>
 								<th>省份</th>
 								<th>家庭住址</th>
+								<th>删除</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -119,6 +136,7 @@
 								<td>{{stu.lxdh}}</td>
 								<td>{{stu.sf}}</td>
 								<td>{{stu.jtdz}}</td>
+								<td><button @click="showDialog(stu.id)" class="btn btn-danger btn-sm btn-block">删除</button></td>
 							</tr>
 						</tbody>
 					</table>
@@ -141,6 +159,25 @@
 				</nav>
 			</div>
 		</div>
+		
+		<!-- 删除确认对话框 -->
+		<div id="dialog" class="modal fade" tabindex="-1" role="dialog">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title">警告</h4>
+		      </div>
+		      <div class="modal-body">
+		        <p class="text-center">是否要删除该名同学？</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+		        <button type="button" @click="removeStudent()" class="btn btn-primary">确认</button>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 	</div>
 </body>
 </html>

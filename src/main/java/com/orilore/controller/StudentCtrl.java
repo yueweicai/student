@@ -19,6 +19,11 @@ public class StudentCtrl {
 	@Resource
 	private IStudentsBiz biz;
 	
+	@RequestMapping("/student/remove")
+	public boolean remove(int id){
+		return biz.remove(id);
+	}
+	
 	@RequestMapping("/student/query")
 	public Map<String,Object> query(int page,String xm,String sf,String mz,String xbbm){
 		//用于封装查询条件
