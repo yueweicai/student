@@ -18,12 +18,34 @@ import com.orilore.model.Students;
 public class StudentCtrl {
 	@Resource
 	private IStudentsBiz biz;
+	/**
+	 * 添加或更新学生信息的方法
+	 * @param bean
+	 * @return
+	 */
+	@RequestMapping("/student/save")
+	public boolean save(Students bean){
+		return biz.save(bean);
+	}
 	
+	/**
+	 * 根据ID删除学生信息的方法
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping("/student/remove")
 	public boolean remove(int id){
 		return biz.remove(id);
 	}
-	
+	/**
+	 * 根据条件查询学生信息的方法
+	 * @param page
+	 * @param xm
+	 * @param sf
+	 * @param mz
+	 * @param xbbm
+	 * @return
+	 */
 	@RequestMapping("/student/query")
 	public Map<String,Object> query(int page,String xm,String sf,String mz,String xbbm){
 		//用于封装查询条件
