@@ -31,8 +31,9 @@ public class StudentsBiz implements IStudentsBiz{
 	}
 
 	@Override
-	public List<Students> query() {
-		return this.mapper.select();
+	public List<Students> query(Map<String,Object> map) {
+		//将查询条件map传递给数据访问层的select方法
+		return this.mapper.select(map);
 	}
 }
 

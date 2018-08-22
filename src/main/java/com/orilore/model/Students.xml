@@ -16,8 +16,14 @@
 	<select id="selectOne" parameterType="Integer" resultType="Students">
 		select * from students where id=#{0}
 	</select>
-	<select id="select" resultMap="studentsResultMap">
-		select * from students
+	<select id="select" parameterType="map" resultMap="studentsResultMap">
+		select * from students where 
+		<!-- 对就收到查询条件进行逐一判断，动态组合查询语句 -->
+		<if test="sf!=null and sf!=''">sf=#{sf} and </if>
+		<if test="mz!=null and mz!=''">mz=#{mz} and </if>
+		<if test="xbbm!=null and xbbm!=''">xbbm=#{xbbm} and </if>
+		<if test="xm!=null and xm!=''">xm like concat('%',#{xm},'%') and </if>
+		2>1
 	</select>
 	<insert id="insert" parameterType="Students">
 		insert into students(sf,xm,xbbm,csny,sfzh,jtdz,mz,lxdh) values(#{sf},#{xm},#{xbbm},#{csny},#{sfzh},#{jtdz},#{mz},#{lxdh})
