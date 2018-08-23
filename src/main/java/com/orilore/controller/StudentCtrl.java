@@ -18,6 +18,17 @@ import com.orilore.model.Students;
 public class StudentCtrl {
 	@Resource
 	private IStudentsBiz biz;
+	
+	/**
+	 * 根据ID查询一名学生记录的方法
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/student/find")
+	public Students find(int id){
+		return biz.find(id);
+	}
+	
 	/**
 	 * 添加或更新学生信息的方法
 	 * @param bean

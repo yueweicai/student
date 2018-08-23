@@ -28,6 +28,9 @@
 				}
 			},
 			methods : {
+				gotoUpdate : function(id){
+					location.href = "student.jsp?id="+id;
+				},
 				removeStudent:function(){
 					var that = this;
 					$.get("student/remove",{id:that.id},function(data){
@@ -122,6 +125,7 @@
 								<th>电话号码</th>
 								<th>省份</th>
 								<th>家庭住址</th>
+								<th>编辑</th>
 								<th>删除</th>
 							</tr>
 						</thead>
@@ -136,6 +140,7 @@
 								<td>{{stu.lxdh}}</td>
 								<td>{{stu.sf}}</td>
 								<td>{{stu.jtdz}}</td>
+								<td><a href="#" @click="gotoUpdate(stu.id)" class="btn btn-warning btn-sm btn-block">编辑</a></td>
 								<td><button @click="showDialog(stu.id)" class="btn btn-danger btn-sm btn-block">删除</button></td>
 							</tr>
 						</tbody>

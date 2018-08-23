@@ -16,6 +16,16 @@
 <script type="text/javascript" src="js/vue.js"></script>
 <script type="text/javascript">
 	$(function(){
+		var id = '${param.id}';
+		
+		/**
+		//在html页面中获取请求参数的方法
+		if(location.href.indexOf("?")>0){
+			var ar = location.href.split("?")[1];
+			id = ar.split("=")[1];
+		}
+		**/
+		
 		var vue = new Vue({
 			el:'#app',
 			data:{
@@ -26,6 +36,12 @@
 				}
 			},
 			methods:{
+				find : function(){
+					var that = this;
+					$.getJSON("student/find",{id:id},function(data){
+						that.student = data;
+					});
+				},
 				save : function(){
 					var that = this;
 					//验证学生姓名
@@ -79,6 +95,7 @@
 								sf:'河北',
 								mz:'汉族'
 							}
+							id = null;
 							$("#xm,#csny,#lxdh,#sfzh").removeClass("has-success");
 						}else{
 							$(".msg").html("<span style='color:red'>学生信息保存失败，请重试！</span>");
@@ -87,7 +104,11 @@
 			
 				}
 			}
-		})
+		});
+		
+		if(id){
+			vue.find();
+		}
 	})
 </script>
 </head>

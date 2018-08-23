@@ -33,7 +33,11 @@ public class Students{
 		this.csny=csny;
 	}
 	public String getCsny(){
-		return this.csny;
+		if(this.csny!=null && !this.csny.equals("") && this.csny.indexOf("-")==-1){
+			return this.csny.substring(0, 4)+"-"+this.csny.substring(4, 6)+"-"+this.csny.substring(6, 8);
+		}else{
+			return this.csny;
+		}
 	}
 	private String sfzh;
 	public void setSfzh(String sfzh){
